@@ -1,0 +1,29 @@
+server:
+  port: 8072
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+spring:
+  cloud:
+    loadbalancer.ribbon.enabled: false
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie
+        - id: file-storage
+          uri: lb://file-storage
+          predicates:
+            - Path=/filestorage/**
+          filters:
+            - RewritePath=/filestorage/(?<path>.*), /$\{path}
+            - RemoveRequestHeader= Cookie,Set-Cookie

@@ -1,0 +1,12 @@
+minio:
+  bucket: documents
+  url: http://192.168.0.4:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+
+spring:
+  datasource:
+    password: lhs22LI=D=
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/crm%2Ffile-storage
