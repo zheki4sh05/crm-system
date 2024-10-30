@@ -1,10 +1,10 @@
-package com.wisecrm.authorizationservice;
+package com.wisecrm.crmapiservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuthorizationServiceApplicationTests {
+class CrmApiServiceApplicationTests {
 
     @Test
     void contextLoads() {
