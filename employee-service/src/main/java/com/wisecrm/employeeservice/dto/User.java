@@ -1,4 +1,4 @@
-package com.wisecrm.authorizationservice.dto;
+package com.wisecrm.employeeservice.dto;
 
 import lombok.*;
 

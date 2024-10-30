@@ -3,7 +3,7 @@ spring:
     oauth2:
       resource-server:
         jwt:
-          issuer-uri:
+          issuer-uri: http://localhost:8080/realms/crm-system-realm
   cloud:
     gateway:
       routes:

@@ -1,7 +1,9 @@
-package com.wisecrm.authorizationservice.controller;
+package com.wisecrm.employeeservice.controllers;
 
 import com.wisecrm.authorizationservice.dto.*;
 import com.wisecrm.authorizationservice.security.*;
+import com.wisecrm.employeeservice.dto.*;
+import com.wisecrm.employeeservice.security.*;
 import org.keycloak.admin.client.*;
 import org.keycloak.representations.idm.*;
 import org.springframework.beans.factory.annotation.*;
@@ -11,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class AuthorizationController {
 
     @Autowired
@@ -20,7 +22,7 @@ public class AuthorizationController {
     @Value("${realm}")
     private String realm;
     @PostMapping(value = "/user")
-    public Response createUser(User user) {
+    public Response createUser(@RequestBody User user) {
         UserRepresentation userRep = mapUserRep(user);
         Keycloak keycloak = keycloakUtil.getKeycloakInstance();
         var res = keycloak.realm(realm).users().create(userRep);
