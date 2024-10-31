@@ -1,10 +1,12 @@
 package com.wisecrm.stagesservice.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class GroupDto {
     @NotNull(message = "group id can't be be null")
     private Long id;

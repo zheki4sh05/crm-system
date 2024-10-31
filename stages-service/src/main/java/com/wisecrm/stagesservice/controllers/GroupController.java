@@ -1,10 +1,14 @@
 package com.wisecrm.stagesservice.controllers;
 
+import com.wisecrm.stagesservice.dto.*;
+import com.wisecrm.stagesservice.exceptions.*;
 import com.wisecrm.stagesservice.service.*;
+import io.swagger.v3.oas.annotations.tags.*;
+import jakarta.persistence.*;
+import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @Tag(name = "group controller")
@@ -21,7 +25,7 @@ public class GroupController {
 
             GroupDto createdGroup  = groupControl.create(groupDto);
 
-            return new ResponseEntity<>(groupDto, HttpStatus.CREATED);
+            return new ResponseEntity<>(createdGroup, HttpStatus.CREATED);
         } catch (SuchEntityAlreadyExists e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }

@@ -1,6 +1,7 @@
 package com.wisecrm.stagesservice.entity;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity

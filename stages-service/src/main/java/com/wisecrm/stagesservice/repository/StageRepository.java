@@ -1,5 +1,10 @@
 package com.wisecrm.stagesservice.repository;
 
+
+import com.wisecrm.stagesservice.entity.*;
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.*;
+
 import java.util.*;
 
 public interface StageRepository extends JpaRepository<Stage, Long> {
