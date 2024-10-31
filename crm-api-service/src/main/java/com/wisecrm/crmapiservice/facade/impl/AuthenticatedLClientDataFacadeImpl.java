@@ -2,6 +2,7 @@ package com.wisecrm.crmapiservice.facade.impl;
 
 import com.wisecrm.crmapiservice.dto.*;
 import com.wisecrm.crmapiservice.entity.*;
+import com.wisecrm.crmapiservice.exceptions.*;
 import com.wisecrm.crmapiservice.facade.*;
 import com.wisecrm.crmapiservice.repository.*;
 import com.wisecrm.crmapiservice.security.interfaces.*;
@@ -24,15 +25,19 @@ public class AuthenticatedLClientDataFacadeImpl implements IAuthenticatedClientD
     @Autowired
     private ApiKeyRepository apiKeyRepository;
 
+    @Autowired
+    private ICustomerControl customerControl;
+
+    private ApiKey getAuthenticatedClientEntity(){
+        ApiKey apiKey = authenticatedClientData.getCurrentUser();
+
+        return apiKeyRepository.findByKey(apiKey.getKey()).get();
+    }
 
     @Override
     public void create(ApplicationDto applicationDto) {
 
-        ApiKey apiKey = authenticatedClientData.getCurrentUser();
-
-        ApiKey apiKeyEntity =apiKeyRepository.findByKey(apiKey.getKey()).get();
-
-        applicationControl.create(applicationDto, apiKeyEntity);
+        applicationControl.create(applicationDto, getAuthenticatedClientEntity());
 
 
     }
@@ -44,5 +49,22 @@ public class AuthenticatedLClientDataFacadeImpl implements IAuthenticatedClientD
 
 
         return applicationControl.getAllByApiKeyAndCompanyId(apikeyEntity,companyId);
+    }
+
+    @Override
+    public void addCustomer(CustomerDto customerDto)  throws SuchEntityAlreadyExistsException {
+
+        ApiKey apiKey = getAuthenticatedClientEntity();
+
+        customerControl.add(apiKey, customerDto);
+
+    }
+    @Override
+    public void updateCustomer(CustomerDto customerDto) {
+
+        ApiKey apiKey = getAuthenticatedClientEntity();
+
+        customerControl.update(apiKey, customerDto);
+
     }
 }
