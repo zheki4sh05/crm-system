@@ -1,5 +1,6 @@
 package com.wisecrm.stagesservice.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data

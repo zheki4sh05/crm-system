@@ -25,7 +25,7 @@ public class Stage {
 
     @ManyToOne
     @ToString.Exclude
-    @JoinColumn(name = "group")
+    @JoinColumn(name = "groups")
     private Group group;
 
 }

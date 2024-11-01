@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.*;
 import java.util.*;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
-    Optional<Group> findById(Long groupId, Long companyId);
+
 
     @Query("""
 select g 

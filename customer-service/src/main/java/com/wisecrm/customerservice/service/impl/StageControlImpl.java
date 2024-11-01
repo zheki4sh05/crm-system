@@ -75,8 +75,7 @@ public class StageControlImpl implements IStageControl {
     public void delete(Long companyId, Long groupId, Long stageId) throws EntityNotFoundException {
 
         Stage deleteStage = stageRepository.findByGroupAndCompany(groupId, companyId, stageId).orElseThrow(EntityNotFoundException::new);
-
-        stageRepository.save(deleteStage);
+        stageRepository.delete(deleteStage);
 
     }
 

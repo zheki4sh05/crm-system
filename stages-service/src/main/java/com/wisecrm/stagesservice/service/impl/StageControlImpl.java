@@ -29,7 +29,7 @@ public class StageControlImpl implements IStageControl {
     public StageDto create(StageDto stageDto) throws SuchEntityAlreadyExists, EntityNotFoundException, MaxCapacityException {
 
 
-        Group group = groupRepository.findById(stageDto.getGroupId(), stageDto.getCompanyId()).orElseThrow(EntityNotFoundException::new);
+        Group group = groupRepository.findByCompanyIdAndGroup(stageDto.getGroupId(), stageDto.getCompanyId()).orElseThrow(EntityNotFoundException::new);
         Stage stage;
 
         int countById = stageRepository.findAllByGroupId(group.getId()).orElse(new ArrayList<>()).size();
@@ -56,7 +56,7 @@ public class StageControlImpl implements IStageControl {
     @Override
     public List<StageDto> fetch(Long companyId, Long groupId) throws EntityNotFoundException {
 
-        Group group = groupRepository.findById(groupId, companyId).orElseThrow(EntityNotFoundException::new);
+        Group group = groupRepository.findByCompanyIdAndGroup(groupId, companyId).orElseThrow(EntityNotFoundException::new);
 
         List<Stage> stageList = stageRepository.findAllByGroupId(groupId).orElse(new ArrayList<>());
 
@@ -76,13 +76,13 @@ public class StageControlImpl implements IStageControl {
 
         Stage deleteStage = stageRepository.findByGroupAndCompany(groupId, companyId, stageId).orElseThrow(EntityNotFoundException::new);
 
-        stageRepository.save(deleteStage);
+        stageRepository.delete(deleteStage);
 
     }
 
     @Override
     @Transactional
-    public StageDto update(StageDto stageDto, String part) throws SuchEntityAlreadyExists, EntityNotFoundException {
+    public StageDto update(StageDto stageDto) throws SuchEntityAlreadyExists, EntityNotFoundException {
 
         Stage updateStage = stageRepository.findByGroupAndCompany(stageDto.getGroupId(), stageDto.getCompanyId(), stageDto.getId()).orElseThrow(EntityExistsException::new);
         updateStage.setName(stageDto.getName());

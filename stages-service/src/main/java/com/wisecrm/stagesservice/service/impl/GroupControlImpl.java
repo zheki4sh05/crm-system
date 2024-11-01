@@ -36,6 +36,7 @@ public class GroupControlImpl implements IGroupControl {
             Group group = Group.builder()
                 .name(groupDto.getName())
                 .company(groupDto.getCompanyId())
+                    .description(groupDto.getDescription())
                 .build();
 
             group=  groupRepository.save(group);

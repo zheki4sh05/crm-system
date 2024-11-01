@@ -73,11 +73,11 @@ public class StageController {
         }
     }
 
-    @PutMapping("/update/{part}")
-    public ResponseEntity<?> update(@RequestBody StageDto stageDto, @PathVariable String part) {
+    @PutMapping("/update")
+    public ResponseEntity<?> update(@RequestBody StageDto stageDto) {
         try {
 
-         StageDto updatedSto = stageControl.update(stageDto, part);
+         StageDto updatedSto = stageControl.update(stageDto);
 
             return new ResponseEntity<>(updatedSto, HttpStatus.OK);
         }
