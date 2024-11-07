@@ -1,11 +1,10 @@
 package com.wisecrm.employeeservice.services.interfaces;
 
 import com.wisecrm.employeeservice.dto.*;
+import com.wisecrm.employeeservice.entity.*;
 
 public interface ICompanyControl {
-    CompanyDto create(CompanyDto companyDto);
-
-    CompanyDto fetch(String email);
+    Company create(CompanyDto companyDto);
 
     String fetchKey(Long companyId);
 

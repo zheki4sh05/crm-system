@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Data
 @Builder
-public class User {
+public class UserDto {
     private String id;
 
     private String firstName;

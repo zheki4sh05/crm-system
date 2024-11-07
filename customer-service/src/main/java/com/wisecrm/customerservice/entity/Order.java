@@ -7,9 +7,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "group")
+@Table(name = "order")
 @Builder
-public class Group {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +19,8 @@ public class Group {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "company")
-    private Long company;
+    @Column(name = "count")
+    private Integer count;
 
 
 

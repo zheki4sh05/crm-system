@@ -8,24 +8,20 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "stage")
+@Table(name = "deal_type")
 @Builder
-public class Stage {
+public class DealType {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="description")
-    private String description;
-
-    @ManyToOne
-    @ToString.Exclude
-    @JoinColumn(name = "groups")
-    private Group group;
+    @Column(name = "company")
+    private Long company;
 
 }

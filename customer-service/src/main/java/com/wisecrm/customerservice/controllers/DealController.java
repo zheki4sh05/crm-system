@@ -2,6 +2,8 @@ package com.wisecrm.customerservice.controllers;
 
 import com.wisecrm.customerservice.dto.*;
 import com.wisecrm.customerservice.exceptions.*;
+import com.wisecrm.customerservice.facade.*;
+import com.wisecrm.customerservice.service.*;
 import io.swagger.v3.oas.annotations.tags.*;
 import jakarta.persistence.*;
 import jakarta.validation.*;
@@ -15,24 +17,29 @@ import org.springframework.web.bind.annotation.*;
 public class DealController {
 
     @Autowired
-    private IDealControl dealControl;
+    private IAuthUserDealControlFacade authUserDealControlFacade;
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody DealDto dto) {
-        try {
 
-            DealDto createdDealDto  = dealControl.create(dto);
+            Long userId = 1l;
+
+            DealDto createdDealDto = authUserDealControlFacade.createDealByUserId(dto,userId);
 
             return new ResponseEntity<>(createdDealDto, HttpStatus.CREATED);
-        } catch (SuchEntityAlreadyExists e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }
-        catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-        catch (RuntimeException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
+
     }
+
+    @PostMapping("/stage")
+    public ResponseEntity<?> update(@Valid DealDto dealDto) {
+
+            Long userId = 1l;
+
+            DealDto updatedDto = authUserDealControlFacade.updateDeal(dealDto,userId);
+
+            return new ResponseEntity<>(updatedDto, HttpStatus.OK);
+
+    }
+
 
 }

@@ -32,14 +32,17 @@ public class StageControlImpl implements IStageControl {
         Group group = groupRepository.findByCompanyIdAndGroup(stageDto.getGroupId(), stageDto.getCompanyId()).orElseThrow(EntityNotFoundException::new);
         Stage stage;
 
-        int countById = stageRepository.findAllByGroupId(group.getId()).orElse(new ArrayList<>()).size();
+        TreeSet<Stage> treeSet = new TreeSet<>(stageRepository.findAllByGroupId(group.getId()).orElse(new ArrayList<>()));
 
-        if(countById<=MAX_COUNT){
+        if(treeSet.size()<=MAX_COUNT){
+
+            int order = treeSet.last().getOrder();
 
              stage = Stage.builder()
                     .name(stageDto.getName())
                     .description(stageDto.getDescription())
                     .group(group)
+                     .order(++order)
                     .build();
             try {
                 stage = stageRepository.save(stage);
@@ -75,6 +78,9 @@ public class StageControlImpl implements IStageControl {
     public void delete(Long companyId, Long groupId, Long stageId) throws EntityNotFoundException {
 
         Stage deleteStage = stageRepository.findByGroupAndCompany(groupId, companyId, stageId).orElseThrow(EntityNotFoundException::new);
+
+
+
 
         stageRepository.delete(deleteStage);
 

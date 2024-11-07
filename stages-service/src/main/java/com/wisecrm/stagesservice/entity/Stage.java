@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "stage")
 @Builder
-public class Stage {
+public class Stage implements Comparable<Stage>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,11 @@ public class Stage {
     @JoinColumn(name = "groups")
     private Group group;
 
+    @Column(name="order")
+    private Integer order;
+
+    @Override
+    public int compareTo(Stage o) {
+        return this.order.compareTo(o.order);
+    }
 }

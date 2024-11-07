@@ -25,4 +25,9 @@ public class StageDto {
 
     @NotNull(message = "Must be a group id")
     private Long groupId;
+
+    @NotNull(message = "Order must starts from 1")
+    private Integer order;
+
+
 }
