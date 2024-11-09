@@ -25,23 +25,6 @@ public class CompanyController {
     @Autowired
     private AuthUserDataControlFacade authUserDataControlFacade;
 
-//    @PostMapping("/create")
-//    public ResponseEntity<?> create(@Valid @RequestBody CompanyDto companyDto,  @AuthenticationPrincipal Jwt jwt) {
-//        try {
-//
-//            Long userId = Long.valueOf(jwt.getSubject());
-//
-//            CompanyDto createdCompanyDto =  authUserDataControlFacade.createCompany(companyDto,userId);
-//
-//            return new ResponseEntity<>(createdCompanyDto, HttpStatus.CREATED);
-//        } catch (SuchEntityAlreadyExists e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-//        }
-//        catch (RuntimeException e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody CompanyDto companyDto) {
         try {

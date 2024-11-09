@@ -50,15 +50,6 @@ public class CompanyControlImpl implements ICompanyControl {
     }
 
     @Override
-    public CompanyDto fetch(String email) {
-
-
-
-return null;
-
-    }
-
-    @Override
     public String fetchKey(Long companyId) {
         return null;
     }
@@ -71,7 +62,7 @@ return null;
     @Override
     public CompanyDto updateCompany(CompanyDto companyDto) throws EntityNotFoundException, DataIntegrityViolationException {
 
-        Company company = companyRepository.findById(companyDto.getId()).orElseThrow(EntityExistsException::new);
+        Company company = companyRepository.findById(companyDto.getId()).orElseThrow(EntityNotFoundException::new);
 
         company.setName(companyDto.getName());
         company.setDescription(companyDto.getDescription());

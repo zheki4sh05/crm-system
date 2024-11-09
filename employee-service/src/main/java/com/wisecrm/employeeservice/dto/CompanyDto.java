@@ -15,9 +15,7 @@ public class CompanyDto {
     @NotBlank
     private String name;
 
-
     private String description;
-
 
 
 }

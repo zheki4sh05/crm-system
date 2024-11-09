@@ -15,4 +15,6 @@ public interface IStageControl {
     void delete(Long companyId, Long groupId, Long stageId) throws EntityNotFoundException;
 
     StageDto update(StageDto stageDto) throws SuchEntityAlreadyExists, EntityNotFoundException;
+
+    List<StageDto> fetch(Long companyId);
 }

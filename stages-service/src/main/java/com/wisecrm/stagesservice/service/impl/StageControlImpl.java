@@ -3,6 +3,7 @@ package com.wisecrm.stagesservice.service.impl;
 import com.wisecrm.stagesservice.dto.*;
 import com.wisecrm.stagesservice.entity.*;
 import com.wisecrm.stagesservice.exceptions.*;
+import com.wisecrm.stagesservice.mapper.*;
 import com.wisecrm.stagesservice.repository.*;
 import com.wisecrm.stagesservice.service.*;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import org.springframework.dao.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
+import java.util.stream.*;
 
 @Service
 public class StageControlImpl implements IStageControl {
@@ -21,6 +23,9 @@ public class StageControlImpl implements IStageControl {
 
     @Autowired
     private StageRepository stageRepository;
+
+    @Autowired
+    private IObjectMapper objectMapper;
 
     private final int MAX_COUNT = 10;
 
@@ -99,6 +104,14 @@ public class StageControlImpl implements IStageControl {
         }
 
         return mapFromEntityToDto(updateStage, stageDto.getGroupId());
+    }
+
+    @Override
+    public List<StageDto> fetch(Long companyId) {
+
+        List<Stage> stageList = stageRepository.findAllByCompany(companyId);
+
+        return stageList.stream().map(item->objectMapper.mapFrom(item)).collect(Collectors.toList());
     }
 
     private StageDto mapFromEntityToDto(Stage entity, Long companyId){

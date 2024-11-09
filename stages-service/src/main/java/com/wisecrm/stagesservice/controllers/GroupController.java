@@ -37,7 +37,7 @@ public class GroupController {
         }
     }
 
-    @GetMapping("/fetch")
+    @GetMapping("/fetchAll")
     public ResponseEntity<?> fetchAll(@RequestParam Long companyId) {
         try {
 

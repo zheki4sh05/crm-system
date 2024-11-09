@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.*;
 
 
 @Service
@@ -46,5 +47,14 @@ public class DealControlImpl implements IDealControl {
         deal.setStage(dealDto.getStageId());
 
         return objectMapper.mapFrom(dealRepository.save(deal));
+    }
+
+    @Override
+    public List<DealDto> fetchByUser(Long userId) {
+
+
+        List<Deal> deals = dealRepository.findAllByUserId(userId).orElse(new ArrayList<>());
+
+        return null;
     }
 }

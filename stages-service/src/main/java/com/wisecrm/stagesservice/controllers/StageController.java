@@ -39,7 +39,7 @@ public class StageController {
     }
 
     @GetMapping("/fetch")
-    public ResponseEntity<?> fetchAll(@RequestParam Long companyId,
+    public ResponseEntity<?> fetch(@RequestParam Long companyId,
                                          @RequestParam Long groupId) {
         try {
 
@@ -54,6 +54,24 @@ public class StageController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/fetch")
+    public ResponseEntity<?> fetchAll(@RequestParam Long companyId) {
+        try {
+
+            List<StageDto> stageDtoList  = stageControl.fetch(companyId);
+
+            return new ResponseEntity<>(stageDtoList, HttpStatus.OK);
+        }
+        catch (EntityNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+        catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> delete(@RequestParam Long companyId,
