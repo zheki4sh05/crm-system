@@ -13,7 +13,7 @@ import org.springframework.security.core.annotation.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin
 @Tag(name = "Company controller")
 @RestController
 @RequestMapping("/api/v1/company")
@@ -25,6 +25,7 @@ public class CompanyController {
     @Autowired
     private AuthUserDataControlFacade authUserDataControlFacade;
 
+    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody CompanyDto companyDto) {
         try {
@@ -40,6 +41,7 @@ public class CompanyController {
         }
     }
 
+    @CrossOrigin
     @PutMapping("/update")
     public ResponseEntity<?> update(@Valid @RequestBody CompanyDto companyDto) {
         try {
@@ -57,6 +59,8 @@ public class CompanyController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin
     @GetMapping("/fetch")
     public ResponseEntity<?> fetch(@AuthenticationPrincipal Jwt jwt) {
         try {
@@ -74,6 +78,8 @@ public class CompanyController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin
     @GetMapping("/info")
     public ResponseEntity<?> key(@RequestParam Long companyId) {
         try {
@@ -89,6 +95,7 @@ public class CompanyController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+    @CrossOrigin
     @PutMapping("/info")
     public ResponseEntity<?> generateKey(@RequestParam Long companyId) {
         try {
@@ -105,6 +112,7 @@ public class CompanyController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/user")
     public ResponseEntity<?> companyByUser(@AuthenticationPrincipal Jwt jwt) {
 

@@ -5,10 +5,12 @@ import com.wisecrm.customerservice.entity.*;
 import com.wisecrm.customerservice.util.mapper.*;
 import org.springframework.stereotype.*;
 
+import java.util.*;
+
 @Component
 public class IObjectMapperImpl implements IObjectMapper {
     @Override
-    public DealDto mapFrom(Deal save) {
+    public DealDto mapFrom(Deal save, List<OrderDto> orderDtoList) {
 
         return DealDto.builder()
                 .name(save.getName())
@@ -38,5 +40,20 @@ public class IObjectMapperImpl implements IObjectMapper {
                 .name(dealType.getName())
                 .build();
     }
+
+    @Override
+    public OrderDto mapFrom(Order order) {
+
+        return OrderDto.builder()
+                .id(order.getId())
+                .name(order.getName())
+                .count(order.getCount())
+                .price(order.getPrice())
+                .dealId(order.getDeal().getId())
+                .code(order.getCode())
+                .build();
+    }
+
+
 
 }

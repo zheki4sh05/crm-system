@@ -11,6 +11,7 @@ import org.springframework.stereotype.*;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.*;
+import java.util.stream.*;
 
 
 @Service
@@ -21,6 +22,9 @@ public class DealControlImpl implements IDealControl {
 
     @Autowired
     private IObjectMapper objectMapper;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public DealDto createDealByUserId(DealDto dto, Long userId, Customer customer) {
@@ -34,7 +38,7 @@ public class DealControlImpl implements IDealControl {
                 .customer(customer)
                         .build();
 
-        return objectMapper.mapFrom(dealRepository.save(deal));
+        return objectMapper.mapFrom(dealRepository.save(deal), new ArrayList<>());
     }
 
     @Override
@@ -46,15 +50,25 @@ public class DealControlImpl implements IDealControl {
         deal.setDescription(dealDto.getDescription());
         deal.setStage(dealDto.getStageId());
 
-        return objectMapper.mapFrom(dealRepository.save(deal));
+        return objectMapper.mapFrom(dealRepository.save(deal), Optional.of(dealDto.getOrderList()).orElse(new ArrayList<>()));
     }
 
     @Override
     public List<DealDto> fetchByUser(Long userId) {
 
+        List<DealDto> dealDtoList = new ArrayList<>();
 
         List<Deal> deals = dealRepository.findAllByUserId(userId).orElse(new ArrayList<>());
 
-        return null;
+        deals.forEach(item->{
+            List<Order> orders = orderRepository.findAllByDealId(item.getId()).orElse(new ArrayList<>());
+
+            List<OrderDto> orderDtoList = orders.stream().map(order->objectMapper.mapFrom(order)).toList();
+
+            dealDtoList.add(objectMapper.mapFrom(item, orderDtoList));
+
+        });
+
+        return dealDtoList;
     }
 }

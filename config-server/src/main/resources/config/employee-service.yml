@@ -1,0 +1,28 @@
+apikey-service: "apikey-service"
+apikey-service-api: "/api/v1/key"
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crm%2Femployee
+    username: postgres
+    password: lhs22LI=D=
+    driver-class-name: org.postgresql.Driver
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+  api-docs.path: /api-docs
+
+server:
+  port: 8080
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone:
+        http://localhost:8070/eureka/
+

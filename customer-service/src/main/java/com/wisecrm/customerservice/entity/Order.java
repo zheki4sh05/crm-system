@@ -22,6 +22,17 @@ public class Order {
     @Column(name = "count")
     private Integer count;
 
+    @Column(name = "count")
+    private String code;
+
+    @Column(name = "price")
+    private Double price;
+
+    @ManyToOne
+    @ToString.Exclude
+    @JoinColumn(name = "deal")
+    private Deal deal;
+
 
 
 
